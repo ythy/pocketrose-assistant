@@ -32,58 +32,60 @@ import SetupItem052 from "./internal/SetupItem052";
 import SetupItem053 from "./internal/SetupItem053";
 import SetupItem054 from "./internal/SetupItem054";
 import SetupItem056 from "./internal/SetupItem056";
+import SetupItem061 from "./internal/SetupItem061";
 import SetupItem from "./SetupItem";
 
+//ythy
 class SetupItemManager {
+  readonly #setupItemList: SetupItem[];
 
-    readonly #setupItemList: SetupItem[];
+  constructor() {
+    this.#setupItemList = [
+      new SetupItem061(),
+      new SetupItem012(),
+      new SetupItem056(),
+      new SetupItem001(),
+      new SetupItem002(),
+      new SetupItem003(),
+      new SetupItem004(),
+      new SetupItem005(),
+      new SetupItem014(),
+      new SetupItem019(),
+      new SetupItem020(),
+      new SetupItem021(),
+      new SetupItem022(),
+      new SetupItem023(),
+      new SetupItem024(),
+      new SetupItem025(),
+      new SetupItem026(),
+      new SetupItem028(),
+      new SetupItem030(),
+      new SetupItem035(),
+      new SetupItem036(),
+      new SetupItem037(),
+      new SetupItem038(),
+      new SetupItem041(),
+      new SetupItem054(),
+      new SetupItem050(),
+      new SetupItem042(),
+      new SetupItem043(),
+      new SetupItem044(),
+      new SetupItem048(),
+      new SetupItem052(),
+      new SetupItem053(),
+      new SetupItem040(),
+      new SetupItem045(),
+      new SetupItem046(),
+    ];
+  }
 
-    constructor() {
-        this.#setupItemList = [
-            new SetupItem012(),
-            new SetupItem056(),
-            new SetupItem001(),
-            new SetupItem002(),
-            new SetupItem003(),
-            new SetupItem004(),
-            new SetupItem005(),
-            new SetupItem014(),
-            new SetupItem019(),
-            new SetupItem020(),
-            new SetupItem021(),
-            new SetupItem022(),
-            new SetupItem023(),
-            new SetupItem024(),
-            new SetupItem025(),
-            new SetupItem026(),
-            new SetupItem028(),
-            new SetupItem030(),
-            new SetupItem035(),
-            new SetupItem036(),
-            new SetupItem037(),
-            new SetupItem038(),
-            new SetupItem041(),
-            new SetupItem054(),
-            new SetupItem050(),
-            new SetupItem042(),
-            new SetupItem043(),
-            new SetupItem044(),
-            new SetupItem048(),
-            new SetupItem052(),
-            new SetupItem053(),
-            new SetupItem040(),
-            new SetupItem045(),
-            new SetupItem046(),
-        ];
-    }
+  getSetupItem() {
+    return this.#setupItemList;
+  }
 
-    getSetupItem() {
-        return this.#setupItemList;
-    }
-
-    static getInstance() {
-        return instance;
-    }
+  static getInstance() {
+    return instance;
+  }
 }
 
 const instance = new SetupItemManager();
