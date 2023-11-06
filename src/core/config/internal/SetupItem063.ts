@@ -49,9 +49,9 @@ function doGenerateSetupItem() {
   html +=
     "<textarea  id='text_" +
     code +
-    "' size='60' rows='2'  style='margin: 10px 0px'  placeholder='" +
+    "' size='60' rows='2'  style='margin: 10px 0px;width:90%'  placeholder='" +
     Constants.SPECIAL_MONSTER.join(",") +
-    "'>";
+    "'></textarea>";
   return html;
 }
 

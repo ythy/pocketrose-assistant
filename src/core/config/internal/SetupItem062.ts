@@ -50,15 +50,15 @@ function doGenerateSetupItem() {
   html +=
     "<textarea  id='text_" +
     code +
-    "1' size='60' rows='2'  style='margin: 10px 0px' placeholder='" +
+    "1' size='60' rows='2'  style='margin: 10px 0px;width:90%' placeholder='" +
     Constants.ExcludeEventEntire.join(",") +
-    "'>";
+    "'></textarea>";
   html +=
     "<textarea id='text_" +
     code +
-    "2' size='60' rows='1'  style='margin: 10px 0px'  placeholder='" +
+    "2' size='60' rows='1'  style='margin: 10px 0px;width:90%'  placeholder='" +
     Constants.ExcludeEventPart.join(",") +
-    "'>";
+    "'></textarea>";
   return html;
 }
 
