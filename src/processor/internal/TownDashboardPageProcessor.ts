@@ -52,7 +52,7 @@ class TownDashboardPageProcessor extends PageProcessorCredentialSupport {
           )
         );
         // @ts-ignore
-        $("#version").html(__VERSION__);
+        //$("#version").html(__VERSION__);
       });
 
     $("div:last").append(
@@ -531,22 +531,29 @@ function doRenderEventBoard(credential: Credential, page: TownDashboardPage) {
   let td = $("td:contains('最近发生的事件')").filter(function () {
     return $(this).text() === "最近发生的事件";
   });
-  td.parent().hide().next().find("td:first").attr("id", "eventBoard");
-
-  TownUtils.loadTownStyle(page);
+  let eventpanel = td.parent().parent().parent();
+  const eventText = TownUtils.loadTownStyle(page, eventpanel);
   TownUtils.setOptionInTown();
-  //操作面板部分隐藏及间距调整
+
+  td.parent()
+    .hide()
+    .next()
+    .find("td:first")
+    .attr("id", "eventBoard")
+    .html(eventText);
+  if (eventText) td.parent().next().show();
+  else td.parent().next().hide();
+
   $("#countryAdvancedButton").parent().parent().hide();
   $("#countryNormalButton").css("margin", "15px 0 0 0");
   $("#townButton").css("margin", "15px 0 0 0");
   $("#exitButton").parent().parent().parent().next().hide();
-  //操作面板字号调整
   let townpanel = $("#exitButton").parent().parent().parent().parent();
   townpanel.find("input[type='submit'], button").css("font-size", 20);
   townpanel.find("select").css("font-size", 20);
   townpanel.find("form").css("margin", "0 auto");
   townpanel.find("tr:first").hide().next().hide();
-  //人物面板字号调整
+
   let trrole = $("td:contains('身份')")
     .filter((_, td) => $(td).text() === "身份")
     .parent();
@@ -556,11 +563,11 @@ function doRenderEventBoard(credential: Credential, page: TownDashboardPage) {
     $(td).css("font-size", 20);
   });
   trrole.hide().prev().hide();
-  //在线列表等移动到最下面
+
   $("#online_list").hide().find("> div").appendTo($("body"));
   $("#systemAnnouncement").appendTo("body");
   $("br:first")[0].remove();
-  $("#eventBoard").parent().parent().parent().append(townpanel.parent());
+  eventpanel.parent().parent().parent().append(townpanel.parent());
 }
 
 function doRenderRoleStatus(credential: Credential, page: TownDashboardPage) {

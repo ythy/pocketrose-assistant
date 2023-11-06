@@ -642,7 +642,11 @@ function _renderPalaceTask(credential: Credential) {
 
 function _renderEventBoard(page: TownDashboardPage) {
   //$("#eventBoard").html(page.processedEventBoardHtml!);
-  TownUtils.loadTownStyle(page);
+  const eventpanel = $("#eventBoard");
+  const eventText = TownUtils.loadTownStyle(page, eventpanel);
+  eventpanel.html(eventText);
+  if (eventText) eventpanel.parent().show();
+  else eventpanel.parent().hide();
 }
 
 function _renderConversation(page: TownDashboardPage) {
