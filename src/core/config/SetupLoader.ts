@@ -1,5 +1,5 @@
 import StorageUtils from "../../util/StorageUtils";
-
+import Constants from "../../util/Constants";
 //ythy
 class SetupLoader {
   static isPokemonWikiEnabled(): boolean {
@@ -193,6 +193,28 @@ class SetupLoader {
   static getDropRatio() {
     let result = StorageUtils.getInt("_pa_061", 1);
     return result == 0 ? 1 : result;
+  }
+
+  static getEventExcludes() {
+    const s = StorageUtils.getString("_pa_062");
+    if (!s) {
+      const value = {
+        whole: Constants.ExcludeEventEntire,
+        part: Constants.ExcludeEventPart,
+      };
+      return value;
+    } else {
+      return JSON.parse(s);
+    }
+  }
+
+  static getSpecialMonster() {
+    const s = StorageUtils.getString("_pa_063");
+    if (!s) {
+      return Constants.SPECIAL_MONSTER;
+    } else {
+      return s.split(",");
+    }
   }
 }
 

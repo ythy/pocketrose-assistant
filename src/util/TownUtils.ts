@@ -1,13 +1,18 @@
 import TownDashboardPage from "../core/dashboard/TownDashboardPage";
+import SetupLoader from "../core/config/SetupLoader";
 
 class TownUtils {
   static loadTownStyle(page: TownDashboardPage, eventpanel: any): any {
     //处理不显示的事件
     const mine = page.role?.name ?? "如水衔冰";
     const reg = new RegExp(
-      ExcludeEventEntire.map((m) => `\\[${m}\\]`).join("|") +
+      SetupLoader.getEventExcludes()
+        .whole.map((m: string) => `\\[${m}\\]`)
+        .join("|") +
         "|" +
-        ExcludeEventPart.map((m) => `\\[${m}`).join("|")
+        SetupLoader.getEventExcludes()
+          .part.map((m: string) => `\\[${m}`)
+          .join("|")
     );
     const evntText = page
       .eventBoardHtml!.split("<br>")
@@ -49,22 +54,5 @@ class TownUtils {
     }
   }
 }
-
-const ExcludeEventEntire = [
-  "收益",
-  "皇宫",
-  "送物",
-  "送宠物",
-  "探险",
-  "雅典娜",
-  "任务",
-  "个人天真",
-  "天上掉馅饼",
-  "宠物",
-  "宠物图鉴",
-  "加速孵化",
-  "宝藏",
-];
-const ExcludeEventPart = ["祭奠", "十二神殿", "拯救", "上洞"];
 
 export = TownUtils;
