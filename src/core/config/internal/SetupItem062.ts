@@ -48,15 +48,15 @@ function doRender() {
 function doGenerateSetupItem() {
   let html = "";
   html +=
-    "<input type='text' id='text_" +
+    "<textarea  id='text_" +
     code +
-    "1' size='60' maxlength='60' placeholder='" +
+    "1' size='60' rows='2'  style='margin: 10px 0px' placeholder='" +
     Constants.ExcludeEventEntire.join(",") +
     "'>";
   html +=
-    "<input type='text' id='text_" +
+    "<textarea id='text_" +
     code +
-    "2' size='60' maxlength='60' placeholder='" +
+    "2' size='60' rows='1'  style='margin: 10px 0px'  placeholder='" +
     Constants.ExcludeEventPart.join(",") +
     "'>";
   return html;

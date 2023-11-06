@@ -23,6 +23,7 @@ class Constants {
     "宠物图鉴",
     "加速孵化",
     "宝藏",
+    "以旧换新",
   ];
   static ExcludeEventPart = ["祭奠", "十二神殿", "拯救", "上洞"];
   static MONSTER_DAMAGE_LEVEL = [0, 10000, 20000, 30000, 40000, 50000, 60000];

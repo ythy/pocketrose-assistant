@@ -47,9 +47,9 @@ function doRender() {
 function doGenerateSetupItem() {
   let html = "";
   html +=
-    "<input type='text' id='text_" +
+    "<textarea  id='text_" +
     code +
-    "' size='60' maxlength='60' placeholder='" +
+    "' size='60' rows='2'  style='margin: 10px 0px'  placeholder='" +
     Constants.SPECIAL_MONSTER.join(",") +
     "'>";
   return html;
