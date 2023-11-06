@@ -37,8 +37,8 @@ function doRender() {
 
   const value = SetupLoader.getEventExcludes();
 
-  $(`#text_${code}1`).attr("value", value["whole"].join(","));
-  $(`#text_${code}2`).attr("value", value["part"].join(","));
+  $(`#text_${code}1`).html(value["whole"].join(","));
+  $(`#text_${code}2`).html(value["part"].join(","));
 
   $("#setup_" + code).on("click", function () {
     doSaveSetupItem();
@@ -50,21 +50,21 @@ function doGenerateSetupItem() {
   html +=
     "<textarea  id='text_" +
     code +
-    "1' size='60' rows='2'  style='margin: 10px 0px;width:90%' placeholder='" +
+    "1'   rows='3'  style='margin: 5px 0px;width:90%' placeholder='" +
     Constants.ExcludeEventEntire.join(",") +
     "'></textarea>";
   html +=
     "<textarea id='text_" +
     code +
-    "2' size='60' rows='1'  style='margin: 10px 0px;width:90%'  placeholder='" +
+    "2'   rows='1'  style='margin: 5px 0px;width:90%'  placeholder='" +
     Constants.ExcludeEventPart.join(",") +
     "'></textarea>";
   return html;
 }
 
 function doSaveSetupItem() {
-  let whole = $(`#text_${code}1`).val();
-  let part = $(`#text_${code}2`).val();
+  let whole = $(`#text_${code}1`).html();
+  let part = $(`#text_${code}2`).html();
 
   StorageUtils.set(
     key,

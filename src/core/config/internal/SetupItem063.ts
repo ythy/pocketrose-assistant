@@ -37,7 +37,7 @@ function doRender() {
 
   const value = SetupLoader.getSpecialMonster();
 
-  $(`#text_${code}`).attr("value", value.join(","));
+  $(`#text_${code}`).html(value.join(","));
 
   $("#setup_" + code).on("click", function () {
     doSaveSetupItem();
@@ -49,14 +49,14 @@ function doGenerateSetupItem() {
   html +=
     "<textarea  id='text_" +
     code +
-    "' size='60' rows='2'  style='margin: 10px 0px;width:90%'  placeholder='" +
+    "'   rows='2'  style='margin: 5px 0px;width:90%'  placeholder='" +
     Constants.SPECIAL_MONSTER.join(",") +
     "'></textarea>";
   return html;
 }
 
 function doSaveSetupItem() {
-  let value = $(`#text_${code}`).val();
+  let value = $(`#text_${code}`).html();
 
   StorageUtils.set(key, String(value ?? ""));
   MessageBoard.publishMessage(

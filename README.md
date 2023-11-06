@@ -1,5 +1,9 @@
 # pocketrose-assistant-ts
 
+### 版本 4.2.15-ex+1.6
+
+1. 事件屏蔽和特别小宠物设置 Textarea 取值改为 html()
+
 ### 版本 4.2.15-ex+1.5
 
 1. 事件屏蔽和特别小宠物设置 Textarea 使用错误修正。
