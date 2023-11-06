@@ -34,6 +34,7 @@ import SetupItem054 from "./internal/SetupItem054";
 import SetupItem056 from "./internal/SetupItem056";
 import SetupItem061 from "./internal/SetupItem061";
 import SetupItem062 from "./internal/SetupItem062";
+import SetupItem063 from "./internal/SetupItem063";
 import SetupItem from "./SetupItem";
 
 //ythy
@@ -44,6 +45,7 @@ class SetupItemManager {
     this.#setupItemList = [
       new SetupItem061(),
       new SetupItem062(),
+      new SetupItem063(),
       new SetupItem012(),
       new SetupItem056(),
       new SetupItem001(),
