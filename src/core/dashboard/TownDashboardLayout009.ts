@@ -1,6 +1,7 @@
 import _ from "lodash";
 import Credential from "../../util/Credential";
 import NetworkUtils from "../../util/NetworkUtils";
+import TownUtils from "../../util/TownUtils";
 import PageUtils from "../../util/PageUtils";
 import BattleButtonManager from "../battle/BattleButtonManager";
 import BattleProcessor from "../battle/BattleProcessor";
@@ -21,9 +22,9 @@ import TownDashboardLayout from "./TownDashboardLayout";
 import TownDashboardPage from "./TownDashboardPage";
 import TownDashboardPageParser from "./TownDashboardPageParser";
 
-class TownDashboardLayout007 extends TownDashboardLayout {
+class TownDashboardLayout009 extends TownDashboardLayout {
   id(): number {
-    return 7;
+    return 9;
   }
 
   battleMode(): boolean {
@@ -31,25 +32,31 @@ class TownDashboardLayout007 extends TownDashboardLayout {
   }
 
   async render(credential: Credential, page: TownDashboardPage): Promise<void> {
-    $("input[name='watch']")
-      .hide()
-      .after(
-        $(
-          "<span style='background-color:lightgreen;font-weight:bold;font-size:120%' " +
-            "id='watch2'></span>"
-        )
-      );
-    _showTime();
+    //删掉国家动员行，不显示时间
+    $("#mobilization").parent().after($("<tr></tr>"));
+    $("#mobilization").hide();
+    // $("input[name='watch']")
+    //   .hide()
+    //   .after(
+    //     $(
+    //       "<span style='background-color:lightgreen;font-weight:bold;font-size:120%' " +
+    //         "id='watch2'></span>"
+    //     )
+    //   );
+    // _showTime();
 
     $("#leftPanel")
+      .attr("colspan", 2)
       .removeAttr("width")
-      .css("width", "40%")
+      .css("width", "100%")
       .find("> table:first")
       .removeAttr("width")
       .css("width", "95%");
     $("#rightPanel")
       .removeAttr("width")
-      .css("width", "60%")
+      .css("width", "100%")
+      .attr("colspan", 2)
+      .appendTo($("#leftPanel").parent().prev().prev().prev())
       .find("> table:first")
       .find("> tbody:first")
       .find("> tr:eq(1)")
@@ -62,10 +69,10 @@ class TownDashboardLayout007 extends TownDashboardLayout {
         $(tr).after(
           $(
             "" +
-              "<tr class='roleStatus'>" +
-              "<td height='5'>职业</td><th id='roleCareer'>-</th>" +
-              "<td>祭奠ＲＰ</td><th id='consecrateRP'>-</th>" +
-              "</tr>" +
+              //   "<tr class='roleStatus'>" +
+              //   "<td height='5'>职业</td><th id='roleCareer'>-</th>" +
+              //   "<td>祭奠ＲＰ</td><th id='consecrateRP'>-</th>" +
+              //   "</tr>" +
               "<tr class='roleStatus'>" +
               "<td height='5'>收益</td><th id='townTax'>" +
               tax +
@@ -77,6 +84,12 @@ class TownDashboardLayout007 extends TownDashboardLayout {
         new TownDashboardTaxManager(credential, page).processTownTax(
           $("#townTax")
         );
+        $(tr)
+          .parent()
+          .find("td, th")
+          .each((_, td) => {
+            $(td).css("font-size", 20);
+          });
       });
     new PersonalStatus(credential, page.townId).load().then((role) => {
       $("#roleCareer").text(role.career!);
@@ -126,6 +139,7 @@ class TownDashboardLayout007 extends TownDashboardLayout {
       .find("> table:first")
       .find("> tbody:first")
       .find("> tr:first")
+      .hide() //maoxin
       .find("> th:first")
       .find("> font:first")
       .attr("id", "battlePanelTitle")
@@ -154,6 +168,8 @@ class TownDashboardLayout007 extends TownDashboardLayout {
           "<div style='display:none' id='hidden-5'></div>" +
           ""
       );
+
+    doAdvancedAction(credential, page); //maoxin
 
     BattleRecordStorage.getInstance()
       .load(credential.id)
@@ -234,6 +250,41 @@ class TownDashboardLayout007 extends TownDashboardLayout {
         });
       });
   }
+}
+
+//maoxin
+function doAdvancedAction(credential: Credential, page: TownDashboardPage) {
+  const eventpanel = $("#eventBoard").parent().prev().hide().parent().parent();
+  const eventText = TownUtils.loadTownStyle(page, eventpanel);
+  $("#eventBoard").html(eventText);
+  if (eventText) $("#eventBoard").parent().show();
+  else $("#eventBoard").parent().hide();
+  TownUtils.setOptionInTown();
+
+  $("#countryAdvancedButton").parent().parent().hide();
+  $("#countryNormalButton").css("margin", "15px 0 0 0");
+  $("#townButton").css("margin", "15px 0 0 0");
+  $("#exitButton").parent().parent().parent().next().hide();
+  let townpanel = $("#exitButton").parent().parent().parent().parent();
+  townpanel.find("input[type='submit'], button").css("font-size", 20);
+  townpanel.find("select").css("font-size", 20);
+  townpanel.find("form").css("margin", "0 auto");
+  townpanel.find("tr:first").hide().next().hide();
+  eventpanel.parent().parent().parent().append(townpanel.parent());
+
+  let trrole = $("td:contains('身份')")
+    .filter((_, td) => $(td).text() === "身份")
+    .parent();
+  let rolepanel = trrole.parent().parent();
+  rolepanel.attr("height", "100pt");
+  rolepanel.find("td, th").each((_, td) => {
+    $(td).css("font-size", 20);
+  });
+  trrole.hide().prev().hide();
+
+  $("#online_list").hide().find("> div").appendTo($("body"));
+  $("#systemAnnouncement").appendTo("body");
+  $("br:first")[0].remove();
 }
 
 async function doProcessBattleVerificationError(
@@ -561,6 +612,18 @@ function doProcessBattleReturn(
       DashboardPageUtils.generateAdditionalRPHtml(additionalRP)
     );
   }
+  //设置人物面板字号 maoxin
+  $("#additionalRP")
+    .parent()
+    .prev()
+    .hide()
+    .parent()
+    .find("td, th")
+    .each((_, td) => {
+      $(td).css("font-size", 20);
+    });
+  TownUtils.setOptionInTown();
+
   if (harvestList && harvestList.length > 0) {
     // 有入手，其中有可能是干拔了，重新刷新一下RP吧。毕竟入手是小概率事件。
     new PersonalStatus(credential).load().then((role) => {
@@ -615,7 +678,12 @@ function _renderPalaceTask(credential: Credential) {
 }
 
 function _renderEventBoard(page: TownDashboardPage) {
-  $("#eventBoard").html(page.processedEventBoardHtml!);
+  //$("#eventBoard").html(page.processedEventBoardHtml!);
+  const eventpanel = $("#eventBoard");
+  const eventText = TownUtils.loadTownStyle(page, eventpanel);
+  eventpanel.html(eventText);
+  if (eventText) eventpanel.parent().show();
+  else eventpanel.parent().hide();
 }
 
 function _renderConversation(page: TownDashboardPage) {
@@ -625,4 +693,4 @@ function _renderConversation(page: TownDashboardPage) {
   $("input:text[name='message']").attr("id", "messageInputText");
 }
 
-export = TownDashboardLayout007;
+export = TownDashboardLayout009;

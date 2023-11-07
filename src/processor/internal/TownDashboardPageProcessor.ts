@@ -528,46 +528,15 @@ function doRenderMenu(credential: Credential, page: TownDashboardPage) {
 }
 
 function doRenderEventBoard(credential: Credential, page: TownDashboardPage) {
-  let td = $("td:contains('最近发生的事件')").filter(function () {
-    return $(this).text() === "最近发生的事件";
-  });
-  let eventpanel = td.parent().parent().parent();
-  const eventText = TownUtils.loadTownStyle(page, eventpanel);
-  TownUtils.setOptionInTown();
-
-  td.parent()
-    .hide()
+  $("td:contains('最近发生的事件')")
+    .filter(function () {
+      return $(this).text() === "最近发生的事件";
+    })
+    .parent()
     .next()
     .find("td:first")
     .attr("id", "eventBoard")
-    .html(eventText);
-  if (eventText) td.parent().next().show();
-  else td.parent().next().hide();
-
-  $("#countryAdvancedButton").parent().parent().hide();
-  $("#countryNormalButton").css("margin", "15px 0 0 0");
-  $("#townButton").css("margin", "15px 0 0 0");
-  $("#exitButton").parent().parent().parent().next().hide();
-  let townpanel = $("#exitButton").parent().parent().parent().parent();
-  townpanel.find("input[type='submit'], button").css("font-size", 20);
-  townpanel.find("select").css("font-size", 20);
-  townpanel.find("form").css("margin", "0 auto");
-  townpanel.find("tr:first").hide().next().hide();
-
-  let trrole = $("td:contains('身份')")
-    .filter((_, td) => $(td).text() === "身份")
-    .parent();
-  let rolepanel = trrole.parent().parent();
-  rolepanel.attr("height", "100pt");
-  rolepanel.find("td, th").each((_, td) => {
-    $(td).css("font-size", 20);
-  });
-  trrole.hide().prev().hide();
-
-  $("#online_list").hide().find("> div").appendTo($("body"));
-  $("#systemAnnouncement").appendTo("body");
-  $("br:first")[0].remove();
-  eventpanel.parent().parent().parent().append(townpanel.parent());
+    .html(page.processedEventBoardHtml!);
 }
 
 function doRenderRoleStatus(credential: Credential, page: TownDashboardPage) {
