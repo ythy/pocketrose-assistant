@@ -179,9 +179,14 @@ class TownDashboardLayout006 extends TownDashboardLayout {
       .load(credential.id)
       .then((record) => {
         const lastBattle = record.html!;
-        if (lastBattle.includes("领悟了") && lastBattle.includes("孵化成功")) {
+        if (
+          lastBattle.includes(SetupLoader.getPetDeclarations().learn) &&
+          lastBattle.includes("孵化成功")
+        ) {
           $("#battlePanel").css("background-color", "yellow");
-        } else if (lastBattle.includes("领悟了")) {
+        } else if (
+          lastBattle.includes(SetupLoader.getPetDeclarations().learn)
+        ) {
           $("#battlePanel").css("background-color", "wheat");
         } else if (lastBattle.includes("孵化成功")) {
           $("#battlePanel").css("background-color", "skyblue");

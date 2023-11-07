@@ -4,6 +4,7 @@ import BattleDeclarationManager from "./BattleDeclarationManager";
 import BattlePage from "./BattlePage";
 import MonsterProfileLoader from "../monster/MonsterProfileLoader";
 import Credential from "../../util/Credential";
+import SetupLoader from "../config/SetupLoader";
 
 //ythy
 class BattlePageParser {
@@ -88,10 +89,11 @@ class BattlePageParser {
       .find("> td:last")
       .html((idx, html) => {
         const monsterProfile = page.monsterProfile;
-        const s1 = ["大爆炸", "自爆", "地震", "", "", ""];
-        const s2 = ["追击", "暴走", "激鳞", "", "", "", "", "", ""];
-        const s3 = ["见切", "电磁炮", "", "", "", "", "", "", "", "", "", ""];
-        const s4 = ["神秘的守护", "封印", "忍耐", "守护", "闪电", "喷火", ""];
+        const spellSettings = SetupLoader.getGoodSpell();
+        const s1 = spellSettings.gold;
+        const s2 = spellSettings.silver;
+        const s3 = spellSettings.copper;
+        const s4 = spellSettings.iron;
 
         let spells = "";
         if (monsterProfile?.spellText?.trim()) {
@@ -469,9 +471,13 @@ function generateBattleReport(battleTable: JQuery, page: BattlePage) {
   if (page.petUpgrade! && page.petNameHtml !== undefined) {
     let pu = "<span style='color:green'>" + page.petNameHtml + "</span> ";
     if (page.petLearnSpell!) {
-      pu += "<span style='color:blue'>领悟了耶！加油吖!</span>";
+      pu += `<span style='color:blue'>${
+        SetupLoader.getPetDeclarations().learn
+      }</span>`;
     } else {
-      pu += "<span style='color:indigo'>升级了耶！使劲吖!</span>";
+      pu += `<span style='color:indigo'>${
+        SetupLoader.getPetDeclarations().upgrade
+      }</span>`;
     }
     // noinspection HtmlDeprecatedTag,HtmlDeprecatedAttribute,XmlDeprecatedElement
     report =

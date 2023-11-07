@@ -33,6 +33,8 @@ class Constants {
   ];
   static LOSE_DECLARATIONS: string[] = ["%MONSTER%你给我等着！"];
   static DRAW_DECLARATIONS: string[] = ["与%MONSTER%不分高下！"];
+  static PET_UPGRADE_DECLARATIONS: string = "升级了耶！使劲吖!";
+  static PET_LEARN_DECLARATIONS: string = "领悟了耶！加油吖!";
 
   static SPECIAL_MONSTER = [
     "018",
@@ -53,6 +55,11 @@ class Constants {
     "323",
     "208",
   ];
+
+  static GoodSpell1 = ["大爆炸", "自爆", "地震"];
+  static GoodSpell2 = ["追击", "暴走", "激鳞"];
+  static GoodSpell3 = ["见切", "电磁炮"];
+  static GoodSpell4 = ["神秘的守护", "封印", "忍耐", "守护", "闪电", "喷火"];
 }
 
 export = Constants;

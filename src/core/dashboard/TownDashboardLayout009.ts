@@ -175,9 +175,14 @@ class TownDashboardLayout009 extends TownDashboardLayout {
       .load(credential.id)
       .then((record) => {
         const lastBattle = record.html!;
-        if (lastBattle.includes("领悟了") && lastBattle.includes("孵化成功")) {
+        if (
+          lastBattle.includes(SetupLoader.getPetDeclarations().learn) &&
+          lastBattle.includes("孵化成功")
+        ) {
           $("#battlePanel").css("background-color", "yellow");
-        } else if (lastBattle.includes("领悟了")) {
+        } else if (
+          lastBattle.includes(SetupLoader.getPetDeclarations().learn)
+        ) {
           $("#battlePanel").css("background-color", "wheat");
         } else if (lastBattle.includes("孵化成功")) {
           $("#battlePanel").css("background-color", "skyblue");
@@ -357,13 +362,19 @@ async function doProcessBattle(
 
   $("#battlePanel").html(processor.obtainPage.reportHtml!);
   if (
-    processor.obtainPage.reportHtml!.includes("领悟了") &&
+    processor.obtainPage.reportHtml!.includes(
+      SetupLoader.getPetDeclarations().learn
+    ) &&
     processor.obtainPage.reportHtml!.includes("孵化成功")
   ) {
     $("#battlePanel")
       .css("background-color", "wheat")
       .css("text-align", "yellow");
-  } else if (processor.obtainPage.reportHtml!.includes("领悟了")) {
+  } else if (
+    processor.obtainPage.reportHtml!.includes(
+      SetupLoader.getPetDeclarations().learn
+    )
+  ) {
     $("#battlePanel")
       .css("background-color", "wheat")
       .css("text-align", "center");

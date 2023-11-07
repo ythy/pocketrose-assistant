@@ -10,9 +10,9 @@ import SetupItem020 from "./internal/SetupItem020";
 import SetupItem021 from "./internal/SetupItem021";
 import SetupItem022 from "./internal/SetupItem022";
 import SetupItem023 from "./internal/SetupItem023";
-import SetupItem024 from "./internal/SetupItem024";
-import SetupItem025 from "./internal/SetupItem025";
-import SetupItem026 from "./internal/SetupItem026";
+//import SetupItem024 from "./internal/SetupItem024";
+//import SetupItem025 from "./internal/SetupItem025";
+//import SetupItem026 from "./internal/SetupItem026";
 import SetupItem028 from "./internal/SetupItem028";
 import SetupItem030 from "./internal/SetupItem030";
 import SetupItem035 from "./internal/SetupItem035";
@@ -24,9 +24,9 @@ import SetupItem041 from "./internal/SetupItem041";
 import SetupItem042 from "./internal/SetupItem042";
 import SetupItem043 from "./internal/SetupItem043";
 import SetupItem044 from "./internal/SetupItem044";
-import SetupItem045 from "./internal/SetupItem045";
-import SetupItem046 from "./internal/SetupItem046";
-import SetupItem048 from "./internal/SetupItem048";
+//import SetupItem045 from "./internal/SetupItem045";
+//import SetupItem046 from "./internal/SetupItem046";
+//import SetupItem048 from "./internal/SetupItem048";
 import SetupItem050 from "./internal/SetupItem050";
 import SetupItem052 from "./internal/SetupItem052";
 import SetupItem053 from "./internal/SetupItem053";
@@ -35,6 +35,8 @@ import SetupItem056 from "./internal/SetupItem056";
 import SetupItem061 from "./internal/SetupItem061";
 import SetupItem062 from "./internal/SetupItem062";
 import SetupItem063 from "./internal/SetupItem063";
+import SetupItem064 from "./internal/SetupItem064";
+import SetupItem065 from "./internal/SetupItem065";
 import SetupItem from "./SetupItem";
 
 //ythy
@@ -46,6 +48,8 @@ class SetupItemManager {
       new SetupItem061(),
       new SetupItem062(),
       new SetupItem063(),
+      new SetupItem064(),
+      new SetupItem065(),
       new SetupItem012(),
       new SetupItem056(),
       new SetupItem001(),
@@ -59,9 +63,9 @@ class SetupItemManager {
       new SetupItem021(),
       new SetupItem022(),
       new SetupItem023(),
-      new SetupItem024(),
-      new SetupItem025(),
-      new SetupItem026(),
+      //new SetupItem024(),
+      //new SetupItem025(),
+      //new SetupItem026(),
       new SetupItem028(),
       new SetupItem030(),
       new SetupItem035(),
@@ -74,12 +78,12 @@ class SetupItemManager {
       new SetupItem042(),
       new SetupItem043(),
       new SetupItem044(),
-      new SetupItem048(),
+      //new SetupItem048(),
       new SetupItem052(),
       new SetupItem053(),
       new SetupItem040(),
-      new SetupItem045(),
-      new SetupItem046(),
+      //new SetupItem045(),
+      //new SetupItem046(),
     ];
   }
 

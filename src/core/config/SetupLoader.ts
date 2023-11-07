@@ -216,6 +216,34 @@ class SetupLoader {
       return s.split(",");
     }
   }
+
+  static getGoodSpell() {
+    const s = StorageUtils.getString("_pa_064");
+    if (!s) {
+      const value = {
+        gold: Constants.GoodSpell1,
+        silver: Constants.GoodSpell2,
+        copper: Constants.GoodSpell3,
+        iron: Constants.GoodSpell4,
+      };
+      return value;
+    } else {
+      return JSON.parse(s);
+    }
+  }
+
+  static getPetDeclarations() {
+    const s = StorageUtils.getString("_pa_065");
+    if (!s) {
+      const value = {
+        upgrade: Constants.PET_UPGRADE_DECLARATIONS,
+        learn: Constants.PET_LEARN_DECLARATIONS,
+      };
+      return value;
+    } else {
+      return JSON.parse(s);
+    }
+  }
 }
 
 export = SetupLoader;
