@@ -37,7 +37,7 @@ function doRender() {
 
   const value = SetupLoader.getSpecialMonster();
 
-  $(`#text_${code}`).html(value.join(","));
+  $(`#text_${code}`).val(value.join(","));
 
   $("#setup_" + code).on("click", function () {
     doSaveSetupItem();
@@ -56,7 +56,7 @@ function doGenerateSetupItem() {
 }
 
 function doSaveSetupItem() {
-  let value = $(`#text_${code}`).html();
+  let value = $(`#text_${code}`).val();
 
   StorageUtils.set(key, String(value ?? ""));
   MessageBoard.publishMessage(

@@ -37,8 +37,8 @@ function doRender() {
 
   const value = SetupLoader.getEventExcludes();
 
-  $(`#text_${code}1`).html(value["whole"].join(","));
-  $(`#text_${code}2`).html(value["part"].join(","));
+  $(`#text_${code}1`).val(value["whole"].join(","));
+  $(`#text_${code}2`).val(value["part"].join(","));
 
   $("#setup_" + code).on("click", function () {
     doSaveSetupItem();
@@ -63,8 +63,8 @@ function doGenerateSetupItem() {
 }
 
 function doSaveSetupItem() {
-  let whole = $(`#text_${code}1`).html();
-  let part = $(`#text_${code}2`).html();
+  let whole = $(`#text_${code}1`).val();
+  let part = $(`#text_${code}2`).val();
 
   StorageUtils.set(
     key,
