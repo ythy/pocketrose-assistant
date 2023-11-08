@@ -1,5 +1,6 @@
 import _ from "lodash";
 import StringUtils from "../../util/StringUtils";
+import StorageUtils from "../../util/StorageUtils";
 import BattleDeclarationManager from "./BattleDeclarationManager";
 import BattlePage from "./BattlePage";
 import MonsterProfileLoader from "../monster/MonsterProfileLoader";
@@ -12,6 +13,7 @@ class BattlePageParser {
     html: string,
     credential: Credential
   ): Promise<BattlePage> {
+    const zoom = StorageUtils.getInt("_pa_053_" + credential.id, 0) == 9;
     const page = new BattlePage();
 
     let table = $(html)
@@ -59,8 +61,8 @@ class BattlePageParser {
             "onclick",
             `javascript:window.open("https://pocketrose.itsns.net.cn/pocketrose/cgi/status_print2.cgi?id=${ids}")`
           )
-          .attr("width", 96)
-          .attr("height", 96)
+          .attr("width", zoom ? 96 : 64)
+          .attr("height", zoom ? 96 : 64)
           .parent()
           .html();
         return html;
@@ -117,29 +119,69 @@ class BattlePageParser {
           spells
             ? $(`<td style="display: flex;">
                   ${html}
-                   <div style="display:flex;font-size:20px;margin-left:2px" >
-                      <div style="border: 1px black solid; width: 40px;line-height:1.5; ">${monsterProfile["catchRatio"]}</div>
-                      <div style="border: 1px black solid; border-left-width: 0; width: 50px;line-height:1.5;background-color:c8f4dd ">${monsterProfile["perfectHealth"]}</div>
-                      <div style="border: 1px black solid; border-left-width: 0; width: 40px;line-height:1.5; ">${monsterProfile["perfectAttack"]}</div>
-                      <div style="border: 1px black solid; border-left-width: 0; width: 40px;line-height:1.5; ">${monsterProfile["perfectDefense"]}</div>
-                      <div style="border: 1px black solid; border-left-width: 0; width: 40px;line-height:1.5;background-color:#c8f4dd">${monsterProfile["perfectSpecialAttack"]}</div>
-                      <div style="border: 1px black solid; border-left-width: 0; width: 40px;line-height:1.5;">${monsterProfile["perfectSpecialDefense"]}</div>
-                      <div style="border: 1px black solid; border-left-width: 0; width: 40px;line-height:1.5;background-color:#c8f4dd">${monsterProfile["perfectSpeed"]}</div>
+                   <div style="display:flex;font-size:${
+                     zoom ? 20 : 16
+                   }px;margin-left:2px" >
+                      <div style="border: 1px black solid; width: 40px;line-height:1.5; ">${
+                        monsterProfile["catchRatio"]
+                      }</div>
+                      <div style="border: 1px black solid; border-left-width: 0; width: 50px;line-height:1.5;background-color:c8f4dd ">${
+                        monsterProfile["perfectHealth"]
+                      }</div>
+                      <div style="border: 1px black solid; border-left-width: 0; width: 40px;line-height:1.5; ">${
+                        monsterProfile["perfectAttack"]
+                      }</div>
+                      <div style="border: 1px black solid; border-left-width: 0; width: 40px;line-height:1.5; ">${
+                        monsterProfile["perfectDefense"]
+                      }</div>
+                      <div style="border: 1px black solid; border-left-width: 0; width: 40px;line-height:1.5;background-color:#c8f4dd">${
+                        monsterProfile["perfectSpecialAttack"]
+                      }</div>
+                      <div style="border: 1px black solid; border-left-width: 0; width: 40px;line-height:1.5;">${
+                        monsterProfile["perfectSpecialDefense"]
+                      }</div>
+                      <div style="border: 1px black solid; border-left-width: 0; width: 40px;line-height:1.5;background-color:#c8f4dd">${
+                        monsterProfile["perfectSpeed"]
+                      }</div>
                   
-                      <div style="border: 1px black solid; border-left-width: 0; width:40px;">命${monsterProfile["healthEffort"]}</div>
-                      <div style="border: 1px black solid; border-left-width: 0; width:40px;">攻${monsterProfile["attackEffort"]}</div>
-                      <div style="border: 1px black solid; border-left-width: 0; width:40px;">防${monsterProfile["defenseEffort"]}</div>
-                      <div style="border: 1px black solid; border-left-width: 0; width:40px;background-color:#c8f4dd">智${monsterProfile["specialAttackEffort"]}</div>
-                      <div style="border: 1px black solid; border-left-width: 0; width:40px;">精${monsterProfile["specialDefenseEffort"]}</div>
-                      <div style="border: 1px black solid; border-left-width: 0; width:40px;background-color:#c8f4dd">速${monsterProfile["speedEffort"]}</div>
-                      <div style="border: 1px black solid; border-left-width: 0; width:40px;line-height:1.5">${monsterProfile.growExperience}</div>
+                      <div style="border: 1px black solid; border-left-width: 0; width:40px;">命${
+                        monsterProfile["healthEffort"]
+                      }</div>
+                      <div style="border: 1px black solid; border-left-width: 0; width:40px;">攻${
+                        monsterProfile["attackEffort"]
+                      }</div>
+                      <div style="border: 1px black solid; border-left-width: 0; width:40px;">防${
+                        monsterProfile["defenseEffort"]
+                      }</div>
+                      <div style="border: 1px black solid; border-left-width: 0; width:40px;background-color:#c8f4dd">智${
+                        monsterProfile["specialAttackEffort"]
+                      }</div>
+                      <div style="border: 1px black solid; border-left-width: 0; width:40px;">精${
+                        monsterProfile["specialDefenseEffort"]
+                      }</div>
+                      <div style="border: 1px black solid; border-left-width: 0; width:40px;background-color:#c8f4dd">速${
+                        monsterProfile["speedEffort"]
+                      }</div>
+                      <div style="border: 1px black solid; border-left-width: 0; width:40px;line-height:1.5">${
+                        monsterProfile.growExperience
+                      }</div>
                   </div>
-                  <div onclick="javascript:$('#phyform').submit()" style="border:1px black solid;border-top-width:0; width:572px;font-size:20px;text-align:left;margin-left:2px;padding:0px 5px;">${spells}
+                  <div onclick="javascript:$('#phyform').submit()" style="border:1px black solid;border-top-width:0; width:572px;font-size:${
+                    zoom ? 20 : 16
+                  }px;text-align:left;margin-left:2px;padding:0px 5px;">${spells}
                      <form id="phyform" action="town.cgi" style="display:inline-block;">
-                       <input type="hidden" name="id" value="${credential.id}" />
-                       <input type="hidden" name="pass" value="${credential.pass}" />
-                       <input type="hidden" name="select" value="${monsterProfile.code}" />
-                       <input type="hidden" name="pmid" value="${monsterProfile.code}" />
+                       <input type="hidden" name="id" value="${
+                         credential.id
+                       }" />
+                       <input type="hidden" name="pass" value="${
+                         credential.pass
+                       }" />
+                       <input type="hidden" name="select" value="${
+                         monsterProfile.code
+                       }" />
+                       <input type="hidden" name="pmid" value="${
+                         monsterProfile.code
+                       }" />
                        <input type="hidden" name="mode" value="PETFUTURE" />
   
                      </form>
@@ -150,8 +192,8 @@ class BattlePageParser {
           .find("> img:first")
           .attr("title", page.monsterNameHtml!)
           .attr("alt", page.monsterNameHtml!)
-          .attr("width", 128)
-          .attr("height", 128)
+          .attr("width", zoom ? 128 : 64)
+          .attr("height", zoom ? 128 : 64)
           .parent()
           .html();
         return html;
@@ -249,8 +291,9 @@ class BattlePageParser {
         // 没有找到？那说明宠物图片和怪物图片是一个
         petImageSrc = monsterImageSrc;
       }
-      page.petImageHtml =
-        "<img src='" + petImageSrc + "' alt='' width='128' height='128'>";
+      page.petImageHtml = `<img src="${petImageSrc}" alt='' width='${
+        zoom ? 128 : 64
+      }' height='${zoom ? 128 : 64}'>`;
     }
 
     battleTable
@@ -337,7 +380,7 @@ class BattlePageParser {
     page.petLearnSpell =
       html.includes("遗忘了技能") || html.includes("学会了新技能");
 
-    generateBattleReport(battleTable, page);
+    generateBattleReport(battleTable, page, zoom);
 
     $(page.reportHtml!)
       .find("font[color='orange']")
@@ -356,7 +399,13 @@ class BattlePageParser {
   }
 }
 
-function generateBattleReport(battleTable: JQuery, page: BattlePage) {
+function generateBattleReport(
+  battleTable: JQuery,
+  page: BattlePage,
+  zoom: boolean
+) {
+  const zoomSize = zoom ? 5 : 3;
+  const zoomPercent = zoom ? 180 : 120;
   let lastTurnIndex = 0; // 最后一个回合p元素对应的下标
   battleTable
     .find("> tbody:first")
@@ -394,9 +443,9 @@ function generateBattleReport(battleTable: JQuery, page: BattlePage) {
   p1 = StringUtils.substringAfterLast(p1, "</tbody></table><br>");
 
   const $p5 = pList[0];
-  layoutOptimize($p5);
+  layoutOptimize($p5, zoom);
   $p5.find("> table:eq(2)").css("margin", "0 auto").next().attr("id", "last");
-  const p5 = `<font size="5">${StringUtils.substringBefore(
+  const p5 = `<font size="${zoomSize}">${StringUtils.substringBefore(
     $p5.html(),
     `<br id="last">`
   )}</font>`;
@@ -421,11 +470,11 @@ function generateBattleReport(battleTable: JQuery, page: BattlePage) {
 
   // noinspection HtmlDeprecatedTag,HtmlDeprecatedAttribute,XmlDeprecatedElement
   let report =
-    "<b><font size='5'>" +
+    `<b><font size='${zoomSize}'>` +
     p1 +
-    "</font></b><br><b><font size='5'>" +
+    `</font></b><br><b><font size='${zoomSize}'>` +
     p2 +
-    "</font></b><br><br><br><br><b><font size='5'>" +
+    `</font></b><br><br><br><br><b><font size='${zoomSize}'>` +
     p3 +
     "</font></b><br><br><hr/>" +
     p5 +
@@ -453,7 +502,7 @@ function generateBattleReport(battleTable: JQuery, page: BattlePage) {
   }
   // noinspection HtmlDeprecatedTag,HtmlDeprecatedAttribute,XmlDeprecatedElement
   report =
-    "<p style='font-weight:bold'><font size='5'>" +
+    `<p style='font-weight:bold'><font size='${zoomSize}'>` +
     brs +
     "</font></p>" +
     report;
@@ -481,7 +530,7 @@ function generateBattleReport(battleTable: JQuery, page: BattlePage) {
     }
     // noinspection HtmlDeprecatedTag,HtmlDeprecatedAttribute,XmlDeprecatedElement
     report =
-      "<p style='font-weight:bold'><font size='5'>" +
+      `<p style='font-weight:bold'><font size='${zoomSize}'>` +
       pu +
       "</font></p>" +
       report;
@@ -499,10 +548,10 @@ function generateBattleReport(battleTable: JQuery, page: BattlePage) {
   if (page.battleResult !== "战胜" && page.zodiacBattle) {
     // 十二宫战斗没有取得胜利，显示圣斗士剩余的生命
     report =
-      "<p><b style='color:navy;font-size:180%'>" +
+      `<p><b style='color:navy;font-size:${zoomPercent}%'>` +
       page.battleField +
       "</b></p>" +
-      "<p><b style='background-color:lightgreen;font-size:120%'>" +
+      `<p><b style='background-color:lightgreen;font-size:${zoomPercent}%'>` +
       page.monsterHealth +
       "/" +
       page.monsterMaxHealth +
@@ -511,7 +560,7 @@ function generateBattleReport(battleTable: JQuery, page: BattlePage) {
       report;
   } else {
     report =
-      "<p><b style='color:navy;font-size:180%'>" +
+      `<p><b style='color:navy;font-size:${zoomPercent}%'>` +
       page.battleField +
       "</b></p>" +
       report;
@@ -520,7 +569,7 @@ function generateBattleReport(battleTable: JQuery, page: BattlePage) {
   page.reportHtml = report;
 }
 
-function layoutOptimize(p: any) {
+function layoutOptimize(p: any, zoom: boolean) {
   let tr = p
     .find("> table:eq(1)")
     .css("width", "90%")
@@ -530,19 +579,22 @@ function layoutOptimize(p: any) {
   tr.after($("<tr></tr>").append(tr.find("> td:eq(1)")));
 
   p.find("> table:eq(0)").before(p.find("> table:eq(1)"));
-  p.find("td, b").each((_: any, d: any) => {
-    $(d).css("font-size", "22px");
-  });
-  p.find("font[color='#FFF0FF'], font[color='#F1F1F1']").each(
-    (_: any, f: any) => {
-      $(f).attr("size", 4);
-    }
-  );
-  p.find(`font[color='009900'], br + font, font[color='red']`).each(
-    (_: any, f: any) => {
-      $(f).attr("size", 5);
-    }
-  );
+  if (zoom) {
+    p.find("td, b").each((_: any, d: any) => {
+      $(d).css("font-size", "22px");
+    });
+    p.find("font[color='#FFF0FF'], font[color='#F1F1F1']").each(
+      (_: any, f: any) => {
+        $(f).attr("size", 4);
+      }
+    );
+    p.find(`font[color='009900'], br + font, font[color='red']`).each(
+      (_: any, f: any) => {
+        $(f).attr("size", 5);
+      }
+    );
+  }
+
   if (p.find("> table").length == 2) p.find("> table:eq(0)").hide();
   else {
     const roletd = p

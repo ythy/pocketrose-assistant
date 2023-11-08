@@ -1,6 +1,7 @@
 import _ from "lodash";
 import Credential from "../../util/Credential";
 import NetworkUtils from "../../util/NetworkUtils";
+import TownUtils from "../../util/TownUtils";
 import PageUtils from "../../util/PageUtils";
 import BattleButtonManager from "../battle/BattleButtonManager";
 import BattleProcessor from "../battle/BattleProcessor";
@@ -154,7 +155,7 @@ class TownDashboardLayout007 extends TownDashboardLayout {
           "<div style='display:none' id='hidden-5'></div>" +
           ""
       );
-
+    doAdvancedAction(credential, page); //maoxin
     BattleRecordStorage.getInstance()
       .load(credential.id)
       .then((record) => {
@@ -239,6 +240,11 @@ class TownDashboardLayout007 extends TownDashboardLayout {
         });
       });
   }
+}
+
+//maoxin
+function doAdvancedAction(credential: Credential, page: TownDashboardPage) {
+  TownUtils.setOptionInTown();
 }
 
 async function doProcessBattleVerificationError(
@@ -572,6 +578,7 @@ function doProcessBattleReturn(
       DashboardPageUtils.generateAdditionalRPHtml(additionalRP)
     );
   }
+  TownUtils.setOptionInTown(); //maoxin
   if (harvestList && harvestList.length > 0) {
     // 有入手，其中有可能是干拔了，重新刷新一下RP吧。毕竟入手是小概率事件。
     new PersonalStatus(credential).load().then((role) => {
