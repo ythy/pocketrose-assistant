@@ -21,9 +21,9 @@ class BattleDeclarationManager {
       prefix = `发现<span style="color:red">${monsteSplit[0]}</span>！`;
     //提升掉率开始
     const ratioMulti = SetupLoader.getDropRatio();
-    const ratioTu = Math.floor(500 / ratioMulti);
+    const ratioTu = Math.floor(1000 / ratioMulti);
     const ratio = Math.floor(
-      100000 / (monsterObj?.catchRatio ?? 1) / ratioMulti
+      50000 / Math.sqrt(monsterObj?.catchRatio ?? 1) / ratioMulti
     );
     if (Math.floor(Math.random() * ratioTu) == 0)
       suffix = `<br>${ratioMulti}倍出率,1/${ratioTu}！<span style="color:blue">${monster}图鉴</span>入手！`;
