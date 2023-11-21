@@ -3,7 +3,7 @@ const path = require("path");
 const webpack = require("webpack");
 
 const now = new Date();
-const buildVersion = "4.2.15-ex+1.23";
+const buildVersion = "4.2.15-ex+1.24";
 const buildDate = `${now.toLocaleString()}`;
 
 // noinspection JSUnresolvedReference
@@ -42,7 +42,7 @@ module.exports = {
         "// @description  Intercepts and modifies pocketrose CGI requests\n" +
         "// @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==\n" +
         "// @license      mit\n" +
-        "// @author       xiaohaiz,fugue,ythy\n" +
+        "// @author       xiaohaiz,fugue\n" +
         "// @version      " +
         buildVersion +
         "\n" +
