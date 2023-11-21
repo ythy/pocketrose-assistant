@@ -3,7 +3,7 @@ const path = require("path");
 const webpack = require("webpack");
 
 const now = new Date();
-const buildVersion = "4.2.15-ex+1.16";
+const buildVersion = "4.2.15-ex+1.23";
 const buildDate = `${now.toLocaleString()}`;
 
 // noinspection JSUnresolvedReference
@@ -51,7 +51,6 @@ module.exports = {
         "// @require      https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js\n" +
         "// @require      https://cdn.bootcdn.net/ajax/libs/lodash.js/4.17.21/lodash.min.js\n" +
         "// @require      https://cdn.bootcdn.net/ajax/libs/echarts/5.4.2/echarts.min.js\n" +
-        "// @require      https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.noStyle.js\n" +
         "// @run-at       document-start\n" +
         "// @unwrap\n" +
         "// ==/UserScript==\n",

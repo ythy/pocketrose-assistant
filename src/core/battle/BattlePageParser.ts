@@ -560,10 +560,9 @@ function generateBattleReport(
       report;
   } else {
     report =
-      `<p><b style='color:navy;font-size:${zoomPercent}%'>` +
-      page.battleField +
-      "</b></p>" +
-      report;
+      `<p><b style='color:navy;font-size:${zoomPercent}%'>
+      ${page.battleField} <span id="mPetTC"></span>
+      </b></p>` + report;
   }
 
   page.reportHtml = report;

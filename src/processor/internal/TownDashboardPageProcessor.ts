@@ -9,6 +9,7 @@ import Credential from "../../util/Credential";
 import PageUtils from "../../util/PageUtils";
 import StringUtils from "../../util/StringUtils";
 import TownUtils from "../../util/TownUtils";
+import NetworkUtils from "../../util/NetworkUtils";
 import PageProcessorContext from "../PageProcessorContext";
 import PageProcessorCredentialSupport from "../PageProcessorCredentialSupport";
 
@@ -338,7 +339,9 @@ function doRenderMenu(credential: Credential, page: TownDashboardPage) {
               $("#fullRecovery").trigger("click");
             });
           } else {
-            _bindShortcutButton("shortcut0", es[1]);
+            //maoxin 宠联修改  这里注释掉 快速战斗里执行
+            //_bindShortcutButton("shortcut0", es[1]);
+            //end
           }
         }
       })
@@ -413,18 +416,33 @@ function doRenderMenu(credential: Credential, page: TownDashboardPage) {
           buttonClass +
           "' id='shortcut3' style='white-space:nowrap;width:100%'>&nbsp;宠物&nbsp;</button>";
         html += "</td>";
-        html += "<td>";
-        html +=
-          "<button role='button' class='" +
-          buttonClass +
-          "' id='shortcut7' style='white-space:nowrap;width:100%'>&nbsp;银行&nbsp;</button>";
-        html += "</td>";
-        html += "</tr>";
-        html += "</tbody>";
-        html += "</table>";
-        $(th).html(html);
-        _bindShortcutButton("shortcut3", "PETSTATUS");
-        _bindShortcutButton("shortcut7", "BANK");
+        if (SetupLoader.isCareerTransferEntranceDisabled(credential.id)) {
+          html += "<td>";
+          html +=
+            "<button role='button' class='" +
+            buttonClass +
+            "' id='shortcut7' style='white-space:nowrap;width:100%'>&nbsp;银行&nbsp;</button>";
+          html += "</td>";
+          html += "</tr>";
+          html += "</tbody>";
+          html += "</table>";
+          $(th).html(html);
+          _bindShortcutButton("shortcut3", "PETSTATUS");
+          _bindShortcutButton("shortcut7", "BANK");
+        } else {
+          html += "<td>";
+          html +=
+            "<button role='button' class='" +
+            buttonClass +
+            "' id='shortcut8' style='white-space:nowrap;width:100%'>&nbsp;职业&nbsp;</button>";
+          html += "</td>";
+          html += "</tr>";
+          html += "</tbody>";
+          html += "</table>";
+          $(th).html(html);
+          _bindShortcutButton("shortcut3", "PETSTATUS");
+          _bindShortcutButton("shortcut8", "CHANGE_OCCUPATION");
+        }
       })
       .parent()
       .next()

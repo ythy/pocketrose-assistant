@@ -170,6 +170,19 @@ class TownDashboardLayout009 extends TownDashboardLayout {
       );
 
     doAdvancedAction(credential, page); //maoxin
+    $("#shortcut0").on("click", () => {
+      const request = credential.asRequestMap();
+      request.set("town", "13");
+      request.set("con_str", "50");
+      request.set("mode", "PET_TZ");
+      NetworkUtils.post("town.cgi", request).then((html) => {
+        const request = credential.asRequestMap();
+        request.set("mode", "STATUS");
+        NetworkUtils.post("status.cgi", request).then((mainPage) => {
+          doProcessPetTZReturn(credential, mainPage, html);
+        });
+      });
+    });
 
     BattleRecordStorage.getInstance()
       .load(credential.id)
@@ -285,7 +298,11 @@ function doAdvancedAction(credential: Credential, page: TownDashboardPage) {
   rolepanel.find("td, th").each((_, td) => {
     $(td).css("font-size", 20);
   });
-  trrole.hide().prev().hide();
+  if (SetupLoader.isCareerTransferEntranceDisabled(credential.id)) {
+    trrole.hide().prev().hide();
+  } else {
+    trrole.hide();
+  }
 
   $("#online_list").hide().find("> div").appendTo($("body"));
   $("#systemAnnouncement").appendTo("body");
@@ -702,6 +719,52 @@ function _renderConversation(page: TownDashboardPage) {
     .next() // conversation table
     .html(page.t1Html!);
   $("input:text[name='message']").attr("id", "messageInputText");
+}
+
+function doProcessPetTZReturn(
+  credential: Credential,
+  mainPage: string,
+  html: any
+) {
+  const parser = new TownDashboardPageParser(credential, mainPage, true);
+  const page = parser.parse();
+
+  // 更新战斗倒计时部分
+  $("#messageNotification")
+    .parent()
+    .next()
+    .next()
+    .find("> th:first")
+    .html(page.actionNotificationHtml!);
+  if (
+    SetupLoader.isConsecrateStateRecognizeEnabled(credential.id) &&
+    page.role!.canConsecrate!
+  ) {
+    $("#battleCell")
+      .parent()
+      .prev()
+      .find("> th:first")
+      .css("color", "red")
+      .css("font-size", "120%");
+  }
+  const clock = $("input:text[name='clock']");
+  if (clock.length > 0) {
+    const enlargeRatio = SetupLoader.getEnlargeBattleRatio();
+    if (enlargeRatio > 0) {
+      let fontSize = 100 * enlargeRatio;
+      clock.css("font-size", fontSize + "%");
+    }
+    let timeout = _.parseInt(clock.val() as string);
+    if (timeout > 0) {
+      const start = Date.now() / 1000;
+      _countDownClock(timeout, start, clock);
+    }
+  }
+
+  // 更新：消息通知
+  $("#messageNotification").html(page.messageNotificationHtml!);
+  $("#mPetTC").html(/\<b\>※ (.+)\<\/b\>/.exec(html)?.[1] ?? "");
+  _renderEventBoard(page);
 }
 
 export = TownDashboardLayout009;
