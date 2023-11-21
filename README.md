@@ -1,4 +1,4 @@
-# pocketrose-assistant-ts
+# pocketrose-assistant-ts EX Version
 
 ### 版本 4.2.15-ex+1.24
 
