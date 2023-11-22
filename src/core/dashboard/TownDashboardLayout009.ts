@@ -283,6 +283,10 @@ function doAdvancedAction(credential: Credential, page: TownDashboardPage) {
   $("#countryNormalButton").css("margin", "15px 0 0 0");
   $("#townButton").css("margin", "15px 0 0 0");
   $("#exitButton").parent().parent().parent().next().hide();
+  $(
+    "#townButton, #personalButton, #countryNormalButton, #countryAdvancedButton"
+  ).css("margin-left", "-80px");
+
   let townpanel = $("#exitButton").parent().parent().parent().parent();
   townpanel.find("input[type='submit'], button").css("font-size", 20);
   townpanel.find("select").css("font-size", 20);
