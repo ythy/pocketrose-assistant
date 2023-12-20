@@ -604,9 +604,7 @@ function doProcessBattleReturn(
     let timeout = _.parseInt(clock.val() as string);
     if (timeout > 0) {
       const start = Date.now() / 1000;
-      inBattle = true;
-      inPetPT = false;
-      _countDownClock(timeout, start, clock);
+      _countDownClock1(timeout, start, clock);
     }
   }
 
@@ -689,37 +687,20 @@ function _showTime() {
   setTimeout(_showTime, 1000);
 }
 
-var inBattle = false;
-function _countDownClock(timeout: number, start: number, clock: JQuery) {
-  let now = Date.now() / 1000;
-  let x = timeout - (now - start);
-  clock.val(_.max([_.ceil(x), 0])!);
-  if (x > 0) {
-    if (inBattle) {
+function _countDownClock1(timeout: number, start: number, clock: JQuery) {
+  const clocknow = $("input:text[name='clock']");
+  if (clock[0].isSameNode(clocknow[0])) {
+    let now = Date.now() / 1000;
+    let x = timeout - (now - start);
+    clock.val(_.max([_.ceil(x), 0])!);
+    if (x > 0) {
       setTimeout(() => {
-        _countDownClock(timeout, start, clock);
+        _countDownClock1(timeout, start, clock);
       }, 100);
+    } else {
+      // @ts-ignore
+      document.getElementById("mplayer")?.play();
     }
-  } else {
-    // @ts-ignore
-    document.getElementById("mplayer")?.play();
-  }
-}
-
-var inPetPT = false;
-function _countDownClock2(timeout: number, start: number, clock: JQuery) {
-  let now = Date.now() / 1000;
-  let x = timeout - (now - start);
-  clock.val(_.max([_.ceil(x), 0])!);
-  if (x > 0) {
-    if (inPetPT) {
-      setTimeout(() => {
-        _countDownClock2(timeout, start, clock);
-      }, 100);
-    }
-  } else {
-    // @ts-ignore
-    document.getElementById("mplayer")?.play();
   }
 }
 
@@ -783,9 +764,7 @@ function doProcessPetTZReturn(
     let timeout = _.parseInt(clock.val() as string);
     if (timeout > 0) {
       const start = Date.now() / 1000;
-      inBattle = false;
-      inPetPT = true;
-      _countDownClock2(timeout, start, clock);
+      _countDownClock1(timeout, start, clock);
     }
   }
 
