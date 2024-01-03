@@ -537,6 +537,8 @@ async function doProcessBattle(
   })();
 }
 
+let clockInterval: any = -1;
+
 function doProcessBattleReturn(
   credential: Credential,
   mainPage: string,
@@ -593,7 +595,7 @@ function doProcessBattleReturn(
       .css("color", "red")
       .css("font-size", "120%");
   }
-
+  clearInterval(clockInterval);
   const clock = $("input:text[name='clock']");
   if (clock.length > 0) {
     const enlargeRatio = SetupLoader.getEnlargeBattleRatio();
@@ -603,8 +605,16 @@ function doProcessBattleReturn(
     }
     let timeout = _.parseInt(clock.val() as string);
     if (timeout > 0) {
-      const start = Date.now() / 1000;
-      _countDownClock1(timeout, start, clock);
+      //const start = Date.now() / 1000;
+      //_countDownClock1(timeout, start, clock);
+      clockInterval = setInterval(() => {
+        timeout--;
+        if (timeout < 0) {
+          clearInterval(clockInterval);
+        } else {
+          clock.val(timeout);
+        }
+      }, 1000);
     }
   }
 
@@ -754,6 +764,7 @@ function doProcessPetTZReturn(
       .css("color", "red")
       .css("font-size", "120%");
   }
+  clearInterval(clockInterval);
   const clock = $("input:text[name='clock']");
   if (clock.length > 0) {
     const enlargeRatio = SetupLoader.getEnlargeBattleRatio();
@@ -763,8 +774,14 @@ function doProcessPetTZReturn(
     }
     let timeout = _.parseInt(clock.val() as string);
     if (timeout > 0) {
-      const start = Date.now() / 1000;
-      _countDownClock1(timeout, start, clock);
+      clockInterval = setInterval(() => {
+        timeout--;
+        if (timeout < 0) {
+          clearInterval(clockInterval);
+        } else {
+          clock.val(timeout);
+        }
+      }, 1000);
     }
   }
 
